@@ -1,0 +1,472 @@
+import React, { useState } from 'react';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, ComposedChart, Area } from 'recharts';
+
+const EconomicDashboard = () => {
+  const [activeTab, setActiveTab] = useState('growth');
+
+  // Data Pertumbuhan Ekonomi & Defisit APBN (2020-2025) - UPDATED WITH Q3 2025
+  const growthData = [
+    { quarter: 'Q1 2020', growth: 2.97, deficit: -1.76 },
+    { quarter: 'Q2 2020', growth: -5.32, deficit: -3.52 },
+    { quarter: 'Q3 2020', growth: -3.49, deficit: -4.21 },
+    { quarter: 'Q4 2020', growth: -2.19, deficit: -5.89 },
+    { quarter: 'Q1 2021', growth: -0.74, deficit: -4.65 },
+    { quarter: 'Q2 2021', growth: 7.07, deficit: -3.82 },
+    { quarter: 'Q3 2021', growth: 3.51, deficit: -3.45 },
+    { quarter: 'Q4 2021', growth: 5.02, deficit: -4.57 },
+    { quarter: 'Q1 2022', growth: 5.01, deficit: -2.41 },
+    { quarter: 'Q2 2022', growth: 5.44, deficit: -2.38 },
+    { quarter: 'Q3 2022', growth: 5.72, deficit: -2.51 },
+    { quarter: 'Q4 2022', growth: 5.01, deficit: -2.38 },
+    { quarter: 'Q1 2023', growth: 5.03, deficit: -1.85 },
+    { quarter: 'Q2 2023', growth: 5.17, deficit: -1.92 },
+    { quarter: 'Q3 2023', growth: 4.94, deficit: -1.64 },
+    { quarter: 'Q4 2023', growth: 5.04, deficit: -1.65 },
+    { quarter: 'Q1 2024', growth: 5.11, deficit: -1.48 },
+    { quarter: 'Q2 2024', growth: 5.05, deficit: -1.32 },
+    { quarter: 'Q3 2024', growth: 4.95, deficit: -1.52 },
+    { quarter: 'Q4 2024', growth: 5.02, deficit: -1.75 },
+    { quarter: 'Q1 2025', growth: 4.87, deficit: -1.62 },
+    { quarter: 'Q2 2025', growth: 5.12, deficit: -1.84 },
+    { quarter: 'Q3 2025', growth: 5.04, deficit: -1.56 }
+  ];
+
+  // Data Inflasi vs Target BI (2020-2025)
+  const inflationData = [
+    { month: 'Jan 2020', inflation: 2.68, targetMid: 3.0 },
+    { month: 'Jul 2020', inflation: 1.54, targetMid: 3.0 },
+    { month: 'Jan 2021', inflation: 1.55, targetMid: 3.0 },
+    { month: 'Jul 2021', inflation: 1.52, targetMid: 3.0 },
+    { month: 'Jan 2022', inflation: 2.18, targetMid: 3.0 },
+    { month: 'Jul 2022', inflation: 4.94, targetMid: 3.0 },
+    { month: 'Jan 2023', inflation: 5.28, targetMid: 3.0 },
+    { month: 'Jul 2023', inflation: 3.08, targetMid: 2.5 },
+    { month: 'Jan 2024', inflation: 2.57, targetMid: 2.5 },
+    { month: 'Jul 2024', inflation: 2.13, targetMid: 2.5 },
+    { month: 'Jan 2025', inflation: 1.98, targetMid: 2.5 },
+    { month: 'Jul 2025', inflation: 2.15, targetMid: 2.5 },
+    { month: 'Sep 2025', inflation: 2.65, targetMid: 2.5 }
+  ];
+
+  // Data Tingkat Pengangguran (2020-2024) - COMBINED
+  const unemploymentData = [
+    { year: '2020', rate: 7.07, absolute: 9.77 },
+    { year: '2021', rate: 6.26, absolute: 9.10 },
+    { year: '2022', rate: 5.86, absolute: 8.43 },
+    { year: '2023', rate: 5.32, absolute: 7.86 },
+    { year: '2024', rate: 4.91, absolute: 7.20 }
+  ];
+
+  // Data Rasio Utang & PDB (2020-2024) - TWO COMBINED DATA
+  const debtData = [
+    { year: '2020', ratio: 40.30, pdb: 15434.2 },
+    { year: '2021', ratio: 40.73, pdb: 16970.8 },
+    { year: '2022', ratio: 39.70, pdb: 19588.4 },
+    { year: '2023', ratio: 39.21, pdb: 20892.4 },
+    { year: '2024', ratio: 39.36, pdb: 22139.0 }
+  ];
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-3 border border-blue-200 rounded shadow-lg text-sm">
+          <p className="font-semibold text-blue-900 mb-1">{label}</p>
+          {payload.map((entry, index) => (
+            <p key={index} style={{ color: entry.color }} className="text-xs">
+              {entry.name}: {typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}
+              {entry.unit || ''}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white rounded-xl shadow-2xl p-6 mb-6 border-t-4 border-blue-600">
+          <h1 className="text-3xl font-bold text-blue-900 mb-2">
+            📊 Analisis Data Ekonomi Indonesia Berdasarkan Data Empiris
+          </h1>
+          <p className="text-blue-700 text-sm font-medium">
+            Ketidakpastian dan Kebijakan (Chapter 21) | Periode 2020-2025
+          </p>
+          <p className="text-blue-600 text-xs mt-1">
+            Laporan Akademik - Dashboard Interaktif dengan Fitur Hover & Detail Data
+          </p>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          {[
+            { id: 'growth', label: '📈 Pertumbuhan & Defisit', icon: '📊' },
+            { id: 'inflation', label: '💹 Inflasi', icon: '📉' },
+            { id: 'unemployment', label: '👥 Pengangguran', icon: '💼' },
+            { id: 'debt', label: '💰 Rasio Utang & PDB', icon: '📈' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-5 py-3 rounded-lg font-semibold transition-all whitespace-nowrap text-sm ${
+                activeTab === tab.id
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-xl transform scale-105'
+                  : 'bg-white text-blue-700 hover:bg-blue-50 shadow-md hover:shadow-lg'
+              }`}
+            >
+              <span className="mr-2">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content Area */}
+        <div className="bg-white rounded-xl shadow-2xl p-6">
+          {activeTab === 'growth' && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-blue-900">
+                  Grafik 1: Pertumbuhan Ekonomi & Defisit APBN (2020-2025)
+                </h2>
+                <span className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                  Data Update: Q3 2025
+                </span>
+              </div>
+              <ResponsiveContainer width="100%" height={450}>
+                <LineChart data={growthData} margin={{ top: 5, right: 30, left: 20, bottom: 60 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
+                  <XAxis 
+                    dataKey="quarter" 
+                    tick={{ fontSize: 10, fill: '#1e40af' }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                  />
+                  <YAxis tick={{ fill: '#1e40af', fontSize: 12 }} label={{ value: '(%)', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                  <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" strokeWidth={2} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="growth" 
+                    stroke="#2563eb" 
+                    strokeWidth={3}
+                    name="PDB Growth (%)"
+                    dot={{ fill: '#2563eb', r: 4 }}
+                    activeDot={{ r: 6 }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="deficit" 
+                    stroke="#dc2626" 
+                    strokeWidth={3}
+                    name="Defisit APBN (% PDB)"
+                    dot={{ fill: '#dc2626', r: 4 }}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+              <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <p className="text-sm text-blue-900 font-semibold mb-2">📌 Sumber Data:</p>
+                <p className="text-xs text-blue-800 mb-3">BPS (Badan Pusat Statistik) & Kementerian Keuangan RI</p>
+                <p className="text-sm text-blue-900 font-semibold mb-2">📊 Interpretasi:</p>
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  Kontraksi ekonomi Q2 2020 mencapai -5,32% akibat pandemi dengan lonjakan defisit -5,89%. 
+                  Pemulihan ekonomi dimulai sejak Q2 2021 dengan pertumbuhan 7,07%. Sepanjang 2020-2025, 
+                  terjadi tren perbaikan dengan defisit yang semakin terkendali dari -5,89% (2020) menjadi 
+                  -1,56% pada Q3 2025, menunjukkan konsolidasi fiskal yang sehat.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'inflation' && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-blue-900">
+                  Grafik 5: Inflasi vs Target Bank Indonesia (2020-2025)
+                </h2>
+                <span className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                  Target: 2,5% ± 1%
+                </span>
+              </div>
+              <ResponsiveContainer width="100%" height={450}>
+                <ComposedChart data={inflationData} margin={{ top: 5, right: 30, left: 20, bottom: 60 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
+                  <XAxis 
+                    dataKey="month" 
+                    tick={{ fontSize: 10, fill: '#1e40af' }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                  />
+                  <YAxis 
+                    tick={{ fill: '#1e40af', fontSize: 12 }} 
+                    domain={[0, 6]}
+                    label={{ value: '(%)', angle: -90, position: 'insideLeft' }}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                  
+                  {/* Target Zone - Green for in target, Red for out */}
+                  <Area 
+                    type="monotone"
+                    dataKey={() => 3.5}
+                    fill="#86efac"
+                    fillOpacity={0.2}
+                    stroke="none"
+                    name="Target Atas (3,5%)"
+                  />
+                  <Area 
+                    type="monotone"
+                    dataKey={() => 1.5}
+                    fill="#86efac"
+                    fillOpacity={0.2}
+                    stroke="none"
+                    name="Target Bawah (1,5%)"
+                  />
+                  
+                  {/* Reference Lines */}
+                  <ReferenceLine 
+                    y={3.5} 
+                    stroke="#10b981" 
+                    strokeDasharray="5 5"
+                    strokeWidth={2}
+                    label={{ value: 'Target BI 3,5%', fill: '#059669', fontSize: 11, position: 'right' }}
+                  />
+                  <ReferenceLine 
+                    y={2.5} 
+                    stroke="#3b82f6" 
+                    strokeDasharray="3 3"
+                    strokeWidth={2}
+                    label={{ value: 'Target Tengah 2,5%', fill: '#2563eb', fontSize: 11, position: 'right' }}
+                  />
+                  <ReferenceLine 
+                    y={1.5} 
+                    stroke="#10b981" 
+                    strokeDasharray="5 5"
+                    strokeWidth={2}
+                    label={{ value: 'Target BI 1,5%', fill: '#059669', fontSize: 11, position: 'right' }}
+                  />
+                  
+                  <Line 
+                    type="monotone" 
+                    dataKey="inflation" 
+                    stroke="#1d4ed8" 
+                    strokeWidth={4}
+                    name="Inflasi Aktual (%)"
+                    dot={{ fill: '#1d4ed8', r: 5 }}
+                    activeDot={{ r: 8 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+              <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <p className="text-sm text-blue-900 font-semibold mb-2">📌 Sumber Data:</p>
+                <p className="text-xs text-blue-800 mb-3">Bank Indonesia & BPS</p>
+                <p className="text-sm text-blue-900 font-semibold mb-2">📊 Interpretasi:</p>
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  Inflasi terjaga dalam koridor target BI sejak 2024 setelah lonjakan di 2022-2023 akibat 
+                  guncangan harga komoditas global. Target 2025-2027 ditetapkan 2,5% ± 1% (rentang 1,5%-3,5%). 
+                  Kecuali lonjakan sementara Q3 2022 (4,94%) dan Q1 2023 (5,28%), inflasi konsisten dalam 
+                  zona hijau menunjukkan efektivitas kebijakan moneter BI.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'unemployment' && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-blue-900">
+                  Tren Pengangguran Nasional (2020-2024)
+                </h2>
+                <span className="text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full font-semibold">
+                  ↓ Tren Menurun
+                </span>
+              </div>
+              <ResponsiveContainer width="100%" height={450}>
+                <ComposedChart data={unemploymentData} margin={{ top: 5, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
+                  <XAxis dataKey="year" tick={{ fill: '#1e40af', fontSize: 12 }} />
+                  <YAxis 
+                    yAxisId="left"
+                    tick={{ fill: '#1e40af', fontSize: 12 }} 
+                    label={{ value: 'TPT (%)', angle: -90, position: 'insideLeft' }}
+                    domain={[0, 10]}
+                  />
+                  <YAxis 
+                    yAxisId="right"
+                    orientation="right"
+                    tick={{ fill: '#0ea5e9', fontSize: 12 }} 
+                    label={{ value: 'Juta Orang', angle: 90, position: 'insideRight' }}
+                    domain={[0, 12]}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ paddingTop: '10px' }} />
+                  <Bar 
+                    yAxisId="left"
+                    dataKey="rate" 
+                    fill="#3b82f6" 
+                    name="TPT (%)"
+                    radius={[8, 8, 0, 0]}
+                    barSize={60}
+                  />
+                  <Line 
+                    yAxisId="right"
+                    type="monotone" 
+                    dataKey="absolute" 
+                    stroke="#0ea5e9" 
+                    strokeWidth={3}
+                    name="Jumlah Penganggur (juta)"
+                    dot={{ fill: '#0ea5e9', r: 6 }}
+                    activeDot={{ r: 8 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+
+              <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                {unemploymentData.map((data, idx) => (
+                  <div key={idx} className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                    <p className="text-xs text-blue-700 font-semibold mb-1">{data.year}</p>
+                    <p className="text-2xl font-bold text-blue-900">{data.rate}%</p>
+                    <p className="text-xs text-blue-600 mt-1">{data.absolute}M orang</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <p className="text-sm text-blue-900 font-semibold mb-2">📌 Sumber Data:</p>
+                <p className="text-xs text-blue-800 mb-3">BPS - Survei Angkatan Kerja Nasional (Sakernas)</p>
+                <p className="text-sm text-blue-900 font-semibold mb-2">📊 Interpretasi:</p>
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  Tingkat Pengangguran Terbuka (TPT) menurun konsisten dari puncak pandemi 7,07% (2020) 
+                  menjadi 4,91% (2024), penurunan sebesar 2,16 poin persentase. Jumlah absolut penganggur 
+                  berkurang dari 9,77 juta menjadi 7,20 juta orang, menunjukkan pemulihan pasar tenaga kerja 
+                  yang signifikan. Tren ini mencerminkan efektivitas kebijakan ekonomi dan penciptaan lapangan kerja.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'debt' && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-blue-900">
+                  Rasio Utang Terhadap PDB & Nilai PDB (2020-2024)
+                </h2>
+                <span className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full font-semibold">
+                  Batas Aman: &lt; 60%
+                </span>
+              </div>
+              <ResponsiveContainer width="100%" height={450}>
+                <ComposedChart data={debtData} margin={{ top: 5, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
+                  <XAxis dataKey="year" tick={{ fill: '#1e40af', fontSize: 12 }} />
+                  <YAxis 
+                    yAxisId="left"
+                    tick={{ fill: '#1e40af', fontSize: 12 }} 
+                    domain={[35, 65]}
+                    label={{ value: 'Rasio Utang (% PDB)', angle: -90, position: 'insideLeft' }}
+                  />
+                  <YAxis 
+                    yAxisId="right"
+                    orientation="right"
+                    tick={{ fill: '#0ea5e9', fontSize: 12 }} 
+                    label={{ value: 'PDB (Triliun Rp)', angle: 90, position: 'insideRight' }}
+                    domain={[0, 25000]}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ paddingTop: '10px' }} />
+                  
+                  <ReferenceLine 
+                    yAxisId="left"
+                    y={60} 
+                    stroke="#dc2626" 
+                    strokeDasharray="5 5"
+                    strokeWidth={2}
+                    label={{ value: "Batas Aman 60%", fill: "#dc2626", fontSize: 12, position: 'right' }}
+                  />
+                  <ReferenceLine 
+                    yAxisId="left"
+                    y={40} 
+                    stroke="#f59e0b" 
+                    strokeDasharray="5 5"
+                    strokeWidth={2}
+                    label={{ value: "Ambang Psikologis 40%", fill: "#f59e0b", fontSize: 12, position: 'right' }}
+                  />
+                  
+                  <Bar 
+                    yAxisId="left"
+                    dataKey="ratio" 
+                    fill="#3b82f6" 
+                    name="Rasio Utang (% PDB)"
+                    radius={[8, 8, 0, 0]}
+                    barSize={60}
+                  />
+                  <Line 
+                    yAxisId="right"
+                    type="monotone" 
+                    dataKey="pdb" 
+                    stroke="#0ea5e9" 
+                    strokeWidth={3}
+                    name="PDB (Triliun Rp)"
+                    dot={{ fill: '#0ea5e9', r: 6 }}
+                    activeDot={{ r: 8 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg border border-red-200">
+                  <p className="text-sm text-red-700 font-semibold">Puncak Pandemi (2021)</p>
+                  <p className="text-3xl font-bold text-red-900">40,73%</p>
+                  <p className="text-xs text-red-600 mt-1">PDB: Rp16.970,8 T</p>
+                </div>
+                <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                  <p className="text-sm text-green-700 font-semibold">Terendah (2023)</p>
+                  <p className="text-3xl font-bold text-green-900">39,21%</p>
+                  <p className="text-xs text-green-600 mt-1">PDB: Rp20.892,4 T</p>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                  <p className="text-sm text-blue-700 font-semibold">Terkini (2024)</p>
+                  <p className="text-3xl font-bold text-blue-900">39,36%</p>
+                  <p className="text-xs text-blue-600 mt-1">PDB: Rp22.139,0 T</p>
+                </div>
+              </div>
+
+              <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <p className="text-sm text-blue-900 font-semibold mb-2">📌 Sumber Data:</p>
+                <p className="text-xs text-blue-800 mb-3">Kementerian Keuangan RI, BPS & IMF</p>
+                <p className="text-sm text-blue-900 font-semibold mb-2">📊 Interpretasi:</p>
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  Rasio utang memuncak saat pandemi (40,73% di 2021) akibat stimulus fiskal masif, 
+                  kemudian menurun menjadi 39,21% (2023). Sedikit naik ke 39,36% (2024) namun masih 
+                  jauh di bawah batas aman 60% (UU No.17/2003). Bersamaan dengan itu, PDB nominal 
+                  tumbuh konsisten dari Rp15.434,2 T (2020) menjadi Rp22.139,0 T (2024), menunjukkan 
+                  ekspansi ekonomi yang sehat dengan pengelolaan utang yang prudent.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-2xl p-5 text-center text-white">
+          <p className="text-sm font-semibold">
+            📚 Dashboard Interaktif Analisis Ekonomi Indonesia | Laporan Akademik
+          </p>
+          <p className="text-xs mt-2 opacity-90">
+            Data diperbarui hingga Q3 2025 | Klik tab untuk navigasi | Hover pada grafik untuk detail data
+          </p>
+          <p className="text-xs mt-2 opacity-75">
+            Sumber: BPS, Bank Indonesia, Kementerian Keuangan RI, IMF
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EconomicDashboard;
