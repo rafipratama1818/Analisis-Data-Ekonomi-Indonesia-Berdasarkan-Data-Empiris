@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where to Invest in 2025 | Indonesian Investment Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #1a202c;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: #e2e8f0;
+            padding: 60px 20px 40px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            border-bottom: 1px solid #2d3748;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #a0aec0;
+            font-weight: 400;
+        }
+
+        .card {
+            background: #2d3748;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #4a5568;
+        }
+
+        .card h2 {
+            color: #e2e8f0;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            font-weight: 600;
+            border-bottom: 2px solid #4299e1;
+            padding-bottom: 12px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 1px solid #4299e1;
+            background: transparent;
+            color: #4299e1;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #4299e1;
+            color: #1a202c;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #4a5568;
+        }
+
+        th {
+            background: #1a202c;
+            color: #a0aec0;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: #e2e8f0;
+        }
+
+        tr:hover {
+            background: #374151;
+        }
+
+        .risk-badge {
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .risk-low {
+            background: rgba(72, 187, 120, 0.2);
+            color: #48bb78;
+        }
+
+        .risk-medium {
+            background: rgba(237, 137, 54, 0.2);
+            color: #ed8936;
+        }
+
+        .risk-high {
+            background: rgba(245, 101, 101, 0.2);
+            color: #f56565;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 450px;
+            margin: 30px 0;
+            background: #1a202c;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #2d3748;
+        }
+
+        canvas {
+            max-height: 100%;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(45, 55, 72, 0.98);
+            border: 1px solid #4a5568;
+            border-radius: 6px;
+            padding: 12px 16px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            min-width: 200px;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+        }
+
+        .tooltip-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .tooltip-content {
+            color: #a0aec0;
+            font-size: 0.85em;
+        }
+
+        .tooltip-value {
+            color: #4299e1;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .asset-card {
+            background: #1a202c;
+            padding: 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #2d3748;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-3px);
+            border-color: #4299e1;
+            box-shadow: 0 10px 30px rgba(66, 153, 225, 0.1);
+        }
+
+        .asset-card h3 {
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .performance {
+            font-size: 2em;
+            font-weight: 700;
+            color: #48bb78;
+            margin: 10px 0;
+        }
+
+        .performance.negative {
+            color: #f56565;
+        }
+
+        .ytd-label {
+            font-size: 0.8em;
+            color: #a0aec0;
+            margin-top: 8px;
+        }
+
+        .calculator {
+            background: #1a202c;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #2d3748;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #a0aec0;
+            font-size: 0.9em;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #4a5568;
+            border-radius: 6px;
+            font-size: 1em;
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        .calc-btn {
+            background: #4299e1;
+            color: #1a202c;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .calc-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            background: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 3px solid #4299e1;
+        }
+
+        .result h4 {
+            color: #4299e1;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #2d3748;
+            margin: 50px auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            border: 1px solid #4a5568;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #a0aec0;
+        }
+
+        .close:hover {
+            color: #e2e8f0;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .pros {
+            background: rgba(72, 187, 120, 0.1);
+            border: 1px solid rgba(72, 187, 120, 0.3);
+        }
+
+        .cons {
+            background: rgba(245, 101, 101, 0.1);
+            border: 1px solid rgba(245, 101, 101, 0.3);
+        }
+
+        .pros h4 {
+            color: #48bb78;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .cons h4 {
+            color: #f56565;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .pros ul, .cons ul {
+            list-style-position: inside;
+            color: #e2e8f0;
+        }
+
+        .pros li, .cons li {
+            margin-bottom: 8px;
+        }
+
+        .outlook-section {
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(49, 130, 206, 0.1) 100%);
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid rgba(66, 153, 225, 0.3);
+        }
+
+        .outlook-section h3 {
+            color: #4299e1;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .platform-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .platform-tag {
+            background: rgba(66, 153, 225, 0.2);
+            color: #4299e1;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            border: 1px solid rgba(66, 153, 225, 0.3);
+        }
+
+        footer {
+            background: #2d3748;
+            border-top: 1px solid #4a5568;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .creator-info {
+            margin-bottom: 20px;
+        }
+
+        .creator-name {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #4299e1;
+            margin-bottom: 8px;
+        }
+
+        .creator-email {
+            color: #a0aec0;
+            font-size: 1.1em;
+        }
+
+        .creator-email a {
+            color: #4299e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .creator-email a:hover {
+            color: #63b3ed;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: #4a5568;
+            margin: 20px 0;
+        }
+
+        .footer-note {
+            color: #718096;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            background: #4299e1;
+            color: #1a202c;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .asset-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #a0aec0;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .metric-card {
+            background: #1a202c;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #2d3748;
+        }
+
+        .metric-label {
+            font-size: 0.85em;
+            color: #a0aec0;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        .metric-change {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .metric-change.positive {
+            color: #48bb78;
+        }
+
+        .metric-change.negative {
+            color: #f56565;
+        }
+
+        .metric-change.neutral {
+            color: #ed8936;
+        }
+
+        .rsi-zones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+
+        .rsi-zone {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .rsi-oversold {
+            background: rgba(72, 187, 120, 0.2);
+            color: #48bb78;
+        }
+
+        .rsi-neutral {
+            background: rgba(237, 137, 54, 0.2);
+            color: #ed8936;
+        }
+
+        .rsi-overbought {
+            background: rgba(245, 101, 101, 0.2);
+            color: #f56565;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Where to Invest in 2025</h1>
+            <p>Panduan Lengkap Investasi untuk Investor Indonesia</p>
+            <p style="font-size: 0.85em; margin-top: 10px;">5-Year Portfolio Analysis (2020-2025)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Introduction Section -->
+        <div class="card" style="background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border: 1px solid rgba(66, 153, 225, 0.3);">
+            <div class="intro-grid">
+                <div>
+                    <h2 style="border-bottom: 2px solid #8B5CF6; color: #8B5CF6;">📖 Why This Guide Exists</h2>
+                    <div style="color: #cbd5e0; font-size: 1.05em; line-height: 1.8;">
+                        <p style="margin-bottom: 15px;">
+                            As an Indonesian investor and educator, I noticed many beginners struggle to compare investment options objectively. Most resources are scattered, biased toward specific products, or lack comprehensive data.
+                        </p>
+                        <p style="margin-bottom: 15px;">
+                            This platform consolidates <strong style="color: #4299e1;">5 years of historical performance data (2020-2025)</strong> across 10 major asset classes available in Indonesia, presenting them in an unbiased, data-driven format.
+                        </p>
+                        <p style="margin-bottom: 15px;">
+                            <strong style="color: #48bb78;">Goal:</strong> Help Indonesian investors make informed decisions by understanding real returns, risks, taxes, and accessibility of each investment vehicle.
+                        </p>
+                        <div style="background: rgba(66, 153, 225, 0.15); padding: 15px; border-radius: 6px; margin-top: 20px; border-left: 3px solid #4299e1;">
+                            <p style="font-size: 0.95em; color: #e2e8f0;">
+                                💡 <strong>This is a portfolio project</strong> showcasing data visualization, financial analysis, and web development skills using vanilla JavaScript.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 style="border-bottom: 2px solid #8B5CF6; color: #8B5CF6;">🎯 Quick Usage Guide</h2>
+                    <div style="color: #cbd5e0; font-size: 1.05em; line-height: 1.8;">
+                        <div style="margin-bottom: 20px;">
+                            <div class="step-item">
+                                <span class="step-number" style="background: #4299e1;">1</span>
+                                <div>
+                                    <strong style="color: #4299e1;">Browse Performance Cards</strong>
+                                    <p style="font-size: 0.9em; color: #a0aec0; margin-top: 4px;">Click any asset card to see detailed pros/cons, tax info, and platform recommendations</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <span class="step-number" style="background: #8B5CF6;">2</span>
+                                <div>
+                                    <strong style="color: #8B5CF6;">Explore Interactive Charts</strong>
+                                    <p style="font-size: 0.9em; color: #a0aec0; margin-top: 4px;">Hover over any data point on charts to see exact values, growth rates, and technical indicators (RSI)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <span class="step-number" style="background: #10B981;">3</span>
+                                <div>
+                                    <strong style="color: #10B981;">Compare Side-by-Side</strong>
+                                    <p style="font-size: 0.9em; color: #a0aec0; margin-top: 4px;">Use the comparison table to evaluate returns, risks, minimum investments, and tax implications</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <span class="step-number" style="background: #F59E0B;">4</span>
+                                <div>
+                                    <strong style="color: #F59E0B;">Calculate Projections</strong>
+                                    <p style="font-size: 0.9em; color: #a0aec0; margin-top: 4px;">Use the investment calculator to project your potential returns based on historical data</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(139, 92, 246, 0.15); padding: 12px; border-radius: 6px; margin-top: 20px; border-left: 3px solid #8B5CF6;">
+                            <p style="font-size: 0.9em; color: #e2e8f0;">
+                                📊 <strong>Filter charts</strong> by asset category: All Assets, Safe Assets, Growth Assets, or Cryptocurrency
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Overview Section -->
+        <div class="card">
+            <h2>Performance Overview</h2>
+            <div class="asset-grid" id="assetGrid">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Interactive Chart Section -->
+        <div class="card">
+            <h2>Price Action & Moving Averages</h2>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterChart('all')">All Assets</button>
+                <button class="filter-btn" onclick="filterChart('safe')">Safe Assets</button>
+                <button class="filter-btn" onclick="filterChart('growth')">Growth Assets</button>
+                <button class="filter-btn" onclick="filterChart('crypto')">Cryptocurrency</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+                <div class="tooltip" id="chartTooltip">
+                    <div class="tooltip-title" id="tooltipTitle"></div>
+                    <div class="tooltip-content" id="tooltipContent"></div>
+                </div>
+            </div>
+            <div class="legend" id="chartLegend"></div>
+        </div>
+
+        <!-- RSI Chart -->
+        <div class="card">
+            <h2>Relative Strength Index (RSI)</h2>
+            <p style="color: #a0aec0; margin-bottom: 20px; font-size: 0.9em;">Technical momentum indicator showing overbought (>70) and oversold (<30) conditions</p>
+            <div class="rsi-zones">
+                <span class="rsi-zone rsi-oversold">Oversold < 30</span>
+                <span class="rsi-zone rsi-neutral">Neutral 30-70</span>
+                <span class="rsi-zone rsi-overbought">Overbought > 70</span>
+            </div>
+            <div class="chart-container" style="height: 350px;">
+                <canvas id="rsiChart"></canvas>
+                <div class="tooltip" id="rsiTooltip">
+                    <div class="tooltip-title" id="rsiTooltipTitle"></div>
+                    <div class="tooltip-content" id="rsiTooltipContent"></div>
+                </div>
+            </div>
+            <div class="legend" id="rsiLegend"></div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="card">
+            <h2>Comprehensive Comparison</h2>
+            <div class="comparison-table">
+                <table id="comparisonTable">
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>5Y Return</th>
+                            <th>YTD Return</th>
+                            <th>Annual Return</th>
+                            <th>Risk Level</th>
+                            <th>Min. Investment</th>
+                            <th>Liquidity</th>
+                            <th>Tax</th>
+                            <th>Platform</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Investment Calculator -->
+        <div class="card">
+            <h2>Investment Calculator</h2>
+            <p style="color: #a0aec0; margin-bottom: 20px;">Calculate your investment projection based on historical data</p>
+            <div class="calculator">
+                <div class="input-group">
+                    <label for="investment">Investment Amount (Rp)</label>
+                    <input type="number" id="investment" placeholder="10000000" value="10000000">
+                </div>
+                <div class="input-group">
+                    <label for="assetType">Asset Type</label>
+                    <select id="assetType">
+                        <option value="gold">Gold (Emas)</option>
+                        <option value="silver">Silver (Perak)</option>
+                        <option value="reksadana">Mutual Funds (Reksadana Saham)</option>
+                        <option value="stocks">Stocks (IHSG)</option>
+                        <option value="bitcoin">Bitcoin</option>
+                        <option value="ethereum">Ethereum</option>
+                        <option value="bnb">BNB</option>
+                        <option value="bonds">Government Bonds</option>
+                        <option value="sukuk">Sukuk</option>
+                        <option value="deposito">Deposito</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="period">Investment Period (Years)</label>
+                    <input type="number" id="period" min="1" max="10" value="5">
+                </div>
+                <button class="calc-btn" onclick="calculateInvestment()">Calculate Projection</button>
+                <div id="calcResult"></div>
+            </div>
+        </div>
+
+        <!-- 2025 Outlook -->
+        <div class="card">
+            <h2>2025 Outlook & Recommendations</h2>
+            <div class="outlook-section">
+                <h3>🌟 Top Picks untuk 2025</h3>
+                <p><strong>Untuk Pemula (Risiko Rendah):</strong></p>
+                <ul>
+                    <li>🥇 Reksadana: Mulai dari Rp 10.000, dikelola profesional, BEBAS PAJAK</li>
+                    <li>🏆 Obligasi Negara (ORI/SBR): Return 6.25%, 100% aman dijamin pemerintah</li>
+                    <li>✨ Emas: Hedge inflasi terbaik, mudah dicairkan, return 149% dalam 5 tahun</li>
+                </ul>
+
+                <p style="margin-top: 20px;"><strong>Untuk Pertumbuhan (Risiko Menengah):</strong></p>
+                <ul>
+                    <li>📊 Saham IHSG: Diversifikasi via index fund, return 43% dalam 5 tahun</li>
+                    <li>💼 Kombinasi 60% Saham + 40% Obligasi untuk portfolio seimbang</li>
+                </ul>
+
+                <p style="margin-top: 20px;"><strong>Untuk Agresif (Risiko Tinggi):</strong></p>
+                <ul>
+                    <li>₿ Bitcoin: Return 258% tapi volatilitas tinggi, alokasi max 5-10%</li>
+                    <li>⟠ Ethereum: Return 357%, teknologi blockchain terdepan</li>
+                    <li>🔶 BNB: Return 3,957% tapi sangat spekulatif, untuk yang paham crypto</li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">⚠️ Yang Perlu Dihindari</h3>
+                <ul>
+                    <li>❌ Deposito: Return 2.25-4.25% kalah dengan inflasi (~3.5%), pajak 20%</li>
+                    <li>❌ Over-alokasi ke crypto: Max 5-10% dari total portfolio</li>
+                    <li>❌ Investasi tanpa riset: Selalu pahami produk sebelum invest</li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">📱 Platform Terpercaya OJK</h3>
+                <div class="platform-tags">
+                    <span class="platform-tag">Bibit (Reksadana)</span>
+                    <span class="platform-tag">Stockbit (Saham)</span>
+                    <span class="platform-tag">Ajaib (Saham)</span>
+                    <span class="platform-tag">Bareksa (Obligasi)</span>
+                    <span class="platform-tag">Indodax (Crypto)</span>
+                    <span class="platform-tag">Tokocrypto (Crypto)</span>
+                    <span class="platform-tag">Pegadaian (Emas)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Creator Info -->
+    <footer>
+        <div class="footer-content">
+            <div class="creator-info">
+                <div class="creator-name">Rafi Pratama</div>
+                <div class="creator-email">
+                    <a href="mailto:rafipratama1818@gmail.com">rafipratama1818@gmail.com</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-note">
+                <p>This investment guide is created for educational purposes based on historical data analysis (2020-2025).</p>
+                <p style="margin-top: 8px;">All investment decisions should be made after thorough research and consultation with licensed financial advisors.</p>
+                <p style="margin-top: 12px; color: #4a5568;">© 2025 Rafi Pratama. Built with vanilla JavaScript for GitHub Portfolio.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for detailed info -->
+    <div id="assetModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Investment data based on research (2020-2025)
+        const investmentData = {
+            gold: {
+                name: 'Emas',
+                performance: '+149%',
+                returns5y: 149,
+                ytd: '+13.8%',
+                ytdValue: 13.8,
+                annualReturn: '20.1%',
+                risk: 'low',
+                minInvestment: 'Rp 10.000',
+                liquidity: 'Tinggi',
+                tax: '0.45% PPh saat buyback',
+                platforms: 'Pegadaian, Pluang, IndoGold',
+                icon: '🥇',
+                data: [960000, 1050000, 1320000, 1850000, 2100000, 2390000],
+                rsi: [45, 58, 72, 65, 52, 48],
+                pros: [
+                    'Hedge inflasi terbaik',
+                    'Likuiditas tinggi, mudah dijual',
+                    'Tidak ada pajak capital gain',
+                    'Diakui secara global',
+                    'Dapat dijadikan jaminan'
+                ],
+                cons: [
+                    'Tidak ada passive income/dividen',
+                    'Biaya penyimpanan fisik',
+                    'Spread bid-ask bisa tinggi',
+                    'Return tidak sebaik saham dalam bull market'
+                ]
+            },
+            silver: {
+                name: 'Perak',
+                performance: '+189%',
+                returns5y: 189,
+                ytd: '+18.2%',
+                ytdValue: 18.2,
+                annualReturn: '23.7%',
+                risk: 'medium',
+                minInvestment: 'Rp 50.000',
+                liquidity: 'Sedang',
+                tax: '0.45% PPh saat buyback',
+                platforms: 'Pegadaian, Treasury',
+                icon: '⚪',
+                data: [9000, 11500, 14000, 19000, 22000, 26000],
+                rsi: [52, 65, 78, 68, 58, 54],
+                pros: [
+                    'Return lebih tinggi dari emas',
+                    'Harga lebih terjangkau',
+                    'Permintaan industri tinggi',
+                    'Alternatif diversifikasi logam mulia'
+                ],
+                cons: [
+                    'Volatilitas lebih tinggi dari emas',
+                    'Likuiditas lebih rendah',
+                    'Spread bid-ask lebih besar',
+                    'Storage cost relatif tinggi'
+                ]
+            },
+            reksadana: {
+                name: 'Reksadana Saham',
+                performance: '+95%',
+                returns5y: 95,
+                ytd: '+8.3%',
+                ytdValue: 8.3,
+                annualReturn: '14.3%',
+                risk: 'medium',
+                minInvestment: 'Rp 10.000',
+                liquidity: 'Tinggi (T+7)',
+                tax: 'BEBAS PAJAK 0%',
+                platforms: 'Bibit, Bareksa, Tanamduit',
+                icon: '📊',
+                data: [100, 112, 135, 165, 180, 195],
+                rsi: [48, 55, 62, 68, 58, 52],
+                pros: [
+                    'BEBAS PAJAK - keuntungan 100% milik investor',
+                    'Dikelola manajer investasi profesional',
+                    'Diversifikasi otomatis',
+                    'Minimum investasi sangat rendah (Rp 10rb)',
+                    'Cocok untuk pemula'
+                ],
+                cons: [
+                    'Fee manajemen 1-3% per tahun',
+                    'Tidak bisa kontrol langsung saham apa yang dibeli',
+                    'Pencairan T+7',
+                    'Performa tergantung skill manajer investasi'
+                ]
+            },
+            stocks: {
+                name: 'Saham (IHSG)',
+                performance: '+43%',
+                returns5y: 43,
+                ytd: '+9.6%',
+                ytdValue: 9.6,
+                annualReturn: '7.4%',
+                risk: 'medium',
+                minInvestment: 'Rp 100.000',
+                liquidity: 'Sangat Tinggi',
+                tax: '0.1% PPh Final saat jual',
+                platforms: 'Stockbit, Ajaib, IPOT',
+                icon: '📈',
+                data: [5979, 6300, 6850, 7200, 7800, 8549],
+                rsi: [42, 52, 58, 62, 55, 50],
+                pros: [
+                    'Potensi capital gain dan dividen',
+                    'Likuiditas sangat tinggi',
+                    'Pajak sangat rendah (0.1%)',
+                    'Bisa pilih saham spesifik',
+                    'Transparansi tinggi'
+                ],
+                cons: [
+                    'Butuh pengetahuan analisis',
+                    'Volatilitas tinggi',
+                    'Risiko perusahaan bangkrut',
+                    'Emosional trading bisa rugikan'
+                ]
+            },
+            bitcoin: {
+                name: 'Bitcoin',
+                performance: '+258%',
+                returns5y: 258,
+                ytd: '+63.2%',
+                ytdValue: 63.2,
+                annualReturn: '29.0%',
+                risk: 'high',
+                minInvestment: 'Rp 10.000',
+                liquidity: 'Tinggi',
+                tax: '0.21% PPh Final per transaksi',
+                platforms: 'Indodax, Tokocrypto, Pintu',
+                icon: '₿',
+                data: [133000000, 440000000, 600000000, 380000000, 950000000, 1550000000],
+                rsi: [38, 75, 82, 42, 78, 85],
+                pros: [
+                    'Return tertinggi dalam 5 tahun',
+                    'Decentralized, tidak ada kontrol pemerintah',
+                    'Supply terbatas (21 juta BTC)',
+                    'Adopsi institusional meningkat',
+                    'Digital gold masa depan'
+                ],
+                cons: [
+                    'Volatilitas ekstrem (bisa -50% dalam bulan)',
+                    'Regulasi belum jelas di banyak negara',
+                    'Tidak ada underlying asset',
+                    'Risiko hack/lost wallet',
+                    'FOMO dan panic sell tinggi'
+                ]
+            },
+            ethereum: {
+                name: 'Ethereum',
+                performance: '+357%',
+                returns5y: 357,
+                ytd: '-9.5%',
+                ytdValue: -9.5,
+                annualReturn: '35.5%',
+                risk: 'high',
+                minInvestment: 'Rp 10.000',
+                liquidity: 'Tinggi',
+                tax: '0.21% PPh Final per transaksi',
+                platforms: 'Indodax, Tokocrypto, Pintu',
+                icon: '⟠',
+                data: [7500000, 22000000, 45000000, 28000000, 58000000, 52500000],
+                rsi: [42, 78, 88, 35, 72, 45],
+                pros: [
+                    'Platform smart contract terbesar',
+                    'Ekosistem DeFi dan NFT terdepan',
+                    'Upgrade ETH 2.0 meningkatkan efisiensi',
+                    'Utility token dengan use case nyata',
+                    'Developer community terbesar'
+                ],
+                cons: [
+                    'Gas fee bisa sangat mahal',
+                    'Kompetisi dari blockchain lain (Solana, Cardano)',
+                    'Masih dalam fase transisi ETH 2.0',
+                    'Volatilitas sangat tinggi',
+                    'Kompleksitas teknikal tinggi'
+                ]
+            },
+            bnb: {
+                name: 'BNB (Binance Coin)',
+                performance: '+3,957%',
+                returns5y: 3957,
+                ytd: '+19.3%',
+                ytdValue: 19.3,
+                annualReturn: '125.8%',
+                risk: 'high',
+                minInvestment: 'Rp 10.000',
+                liquidity: 'Tinggi',
+                tax: '0.21% PPh Final per transaksi',
+                platforms: 'Indodax, Tokocrypto',
+                icon: '🔶',
+                data: [250000, 1200000, 5500000, 4800000, 8500000, 10142500],
+                rsi: [35, 85, 92, 48, 82, 75],
+                pros: [
+                    'Return luar biasa dalam 5 tahun',
+                    'Utility dalam ekosistem Binance (diskon fee)',
+                    'Burn mechanism mengurangi supply',
+                    'Binance exchange terbesar dunia',
+                    'BSC (Binance Smart Chain) berkembang pesat'
+                ],
+                cons: [
+                    'Sangat terpusat (controlled by Binance)',
+                    'Regulasi exchange bisa pengaruhi harga',
+                    'Risiko exchange hack/shutdown',
+                    'Volatilitas ekstrem',
+                    'Tidak cocok untuk investor konservatif'
+                ]
+            },
+            bonds: {
+                name: 'Obligasi Negara',
+                performance: '+34%',
+                returns5y: 34,
+                ytd: '+5.5%',
+                ytdValue: 5.5,
+                annualReturn: '6.25%',
+                risk: 'low',
+                minInvestment: 'Rp 1.000.000',
+                liquidity: 'Sedang',
+                tax: '10% PPh Final atas kupon',
+                platforms: 'Bareksa, Bibit, Bank',
+                icon: '🏛️',
+                data: [100, 106.25, 112.64, 119.68, 127.16, 134.11],
+                rsi: [50, 52, 54, 55, 53, 51],
+                pros: [
+                    '100% dijamin pemerintah RI',
+                    'Return fixed dan predictable',
+                    'Kupon dibayar rutin',
+                    'Cocok untuk income stable',
+                    'Risiko default sangat rendah'
+                ],
+                cons: [
+                    'Return relatif rendah',
+                    'Terpengaruh inflasi',
+                    'Likuiditas terbatas di secondary market',
+                    'Lock-up period sampai jatuh tempo',
+                    'Pajak 10% mengurangi real return'
+                ]
+            },
+            sukuk: {
+                name: 'Sukuk (Obligasi Syariah)',
+                performance: '+32%',
+                returns5y: 32,
+                ytd: '+5.1%',
+                ytdValue: 5.1,
+                annualReturn: '5.85%',
+                risk: 'low',
+                minInvestment: 'Rp 1.000.000',
+                liquidity: 'Sedang',
+                tax: '10% PPh Final atas kupon',
+                platforms: 'Bareksa, Bibit, Bank Syariah',
+                icon: '🕌',
+                data: [100, 105.85, 112.04, 118.59, 125.53, 131.88],
+                rsi: [48, 50, 52, 54, 52, 50],
+                pros: [
+                    'Sesuai prinsip syariah',
+                    '100% dijamin pemerintah',
+                    'Return kompetitif dengan obligasi konvensional',
+                    'Struktur lebih transparan (underlying asset jelas)',
+                    'Demand tinggi dari investor Muslim'
+                ],
+                cons: [
+                    'Return sedikit lebih rendah dari obligasi biasa',
+                    'Pilihan produk lebih terbatas',
+                    'Likuiditas secondary market rendah',
+                    'Pajak 10% tetap dikenakan',
+                    'Tidak bisa traded sesering saham'
+                ]
+            },
+            deposito: {
+                name: 'Deposito',
+                performance: '+17%',
+                returns5y: 17,
+                ytd: '+3.0%',
+                ytdValue: 3.0,
+                annualReturn: '3.2%',
+                risk: 'low',
+                minInvestment: 'Rp 1.000.000',
+                liquidity: 'Rendah (locked)',
+                tax: '20% PPh Final atas bunga',
+                platforms: 'Semua Bank',
+                icon: '🏦',
+                data: [100, 103.2, 106.5, 109.9, 113.4, 117.0],
+                rsi: [50, 50, 50, 50, 50, 50],
+                pros: [
+                    'Dijamin LPS sampai Rp 2 miliar',
+                    'Risiko sangat rendah',
+                    'Tidak perlu monitoring',
+                    'Cocok untuk dana darurat',
+                    'Proses mudah'
+                ],
+                cons: [
+                    'Return sangat rendah, kalah inflasi',
+                    'Pajak 20% memangkas return lebih jauh',
+                    'Locked period, ada penalti jika cairkan early',
+                    'Tidak ada capital gain',
+                    'Real return after tax & inflation bisa negatif'
+                ]
+            }
+        };
+
+        // Years for chart
+        const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
+
+        // Initialize page
+        function init() {
+            renderAssetCards();
+            renderComparisonTable();
+            renderChart('all');
+            renderRSIChart();
+        }
+
+        // Render asset cards with metric styling
+        function renderAssetCards() {
+            const grid = document.getElementById('assetGrid');
+            grid.innerHTML = '';
+
+            Object.keys(investmentData).forEach(key => {
+                const asset = investmentData[key];
+                const isPositive = !asset.performance.includes('-');
+                const ytdPositive = !asset.ytd.includes('-');
+                
+                const card = document.createElement('div');
+                card.className = 'asset-card';
+                card.onclick = () => showModal(key);
+                
+                card.innerHTML = `
+                    <div class="metric-label">${asset.icon} ${asset.name}</div>
+                    <div class="metric-value">${asset.performance}</div>
+                    <div class="metric-change ${isPositive ? 'positive' : 'negative'}">
+                        ${asset.annualReturn} Annual Return
+                    </div>
+                    <div class="ytd-label">
+                        YTD: <span style="color: ${ytdPositive ? '#48bb78' : '#f56565'}; font-weight: 600;">${asset.ytd}</span>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <span class="risk-badge risk-${asset.risk}">
+                            ${asset.risk === 'low' ? 'LOW RISK' : asset.risk === 'medium' ? 'MEDIUM RISK' : 'HIGH RISK'}
+                        </span>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Render comparison table
+        function renderComparisonTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            Object.keys(investmentData).forEach(key => {
+                const asset = investmentData[key];
+                const ytdPositive = !asset.ytd.includes('-');
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td><strong>${asset.icon} ${asset.name}</strong></td>
+                    <td><strong style="color: ${asset.performance.includes('-') ? '#f56565' : '#48bb78'}">${asset.performance}</strong></td>
+                    <td><strong style="color: ${ytdPositive ? '#48bb78' : '#f56565'}">${asset.ytd}</strong></td>
+                    <td>${asset.annualReturn}</td>
+                    <td><span class="risk-badge risk-${asset.risk}">
+                        ${asset.risk === 'low' ? 'LOW' : asset.risk === 'medium' ? 'MEDIUM' : 'HIGH'}
+                    </span></td>
+                    <td>${asset.minInvestment}</td>
+                    <td>${asset.liquidity}</td>
+                    <td>${asset.tax}</td>
+                    <td style="font-size: 0.85em;">${asset.platforms}</td>
+                    <td><button class="filter-btn" onclick="showModal('${key}')" style="padding: 6px 12px; font-size: 0.85em;">View</button></td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // Professional chart colors matching the theme
+        const assetColors = {
+            gold: '#F59E0B',
+            silver: '#9CA3AF',
+            reksadana: '#10B981',
+            stocks: '#3B82F6',
+            bitcoin: '#F97316',
+            ethereum: '#8B5CF6',
+            bnb: '#EAB308',
+            bonds: '#6366F1',
+            sukuk: '#14B8A6',
+            deposito: '#78716C'
+        };
+
+        // Track mouse position for tooltip
+        let currentFilter = 'all';
+
+        // Render professional chart with interactivity
+        function renderChart(filter) {
+            currentFilter = filter;
+            const canvas = document.getElementById('trendChart');
+            const ctx = canvas.getContext('2d');
+            const tooltip = document.getElementById('chartTooltip');
+            
+            // Set canvas size with proper DPI
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = (rect.width - 50) * dpr;
+            canvas.height = 400 * dpr;
+            canvas.style.width = (rect.width - 50) + 'px';
+            canvas.style.height = '400px';
+            ctx.scale(dpr, dpr);
+            
+            const width = rect.width - 50;
+            const height = 400;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Filter data based on selection
+            let assetsToShow = Object.keys(investmentData);
+            if (filter === 'safe') {
+                assetsToShow = ['gold', 'bonds', 'sukuk', 'deposito'];
+            } else if (filter === 'growth') {
+                assetsToShow = ['reksadana', 'stocks', 'gold', 'silver'];
+            } else if (filter === 'crypto') {
+                assetsToShow = ['bitcoin', 'ethereum', 'bnb'];
+            }
+            
+            // Calculate chart dimensions
+            const padding = { top: 20, right: 40, bottom: 40, left: 60 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+            
+            // Find max value for scaling (normalize to 100 at start)
+            let maxValue = 0;
+            const normalizedData = {};
+            assetsToShow.forEach(key => {
+                const asset = investmentData[key];
+                normalizedData[key] = asset.data.map((val, i) => (val / asset.data[0]) * 100);
+                maxValue = Math.max(maxValue, ...normalizedData[key]);
+            });
+            
+            // Round up max value to nearest 100
+            maxValue = Math.ceil(maxValue / 100) * 100;
+            
+            // Draw grid lines (horizontal)
+            ctx.strokeStyle = '#2d3748';
+            ctx.lineWidth = 1;
+            const gridLines = 8;
+            for (let i = 0; i <= gridLines; i++) {
+                const y = padding.top + (chartHeight / gridLines) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+                
+                // Y-axis labels
+                const value = Math.round(maxValue - (maxValue / gridLines) * i);
+                ctx.fillStyle = '#718096';
+                ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(value + '%', padding.left - 10, y + 4);
+            }
+            
+            // Draw grid lines (vertical)
+            years.forEach((year, i) => {
+                const x = padding.left + (chartWidth / (years.length - 1)) * i;
+                ctx.beginPath();
+                ctx.moveTo(x, padding.top);
+                ctx.lineTo(x, height - padding.bottom);
+                ctx.stroke();
+                
+                // X-axis labels
+                ctx.fillStyle = '#718096';
+                ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(year, x, height - padding.bottom + 20);
+            });
+            
+            // Store point positions for hover detection
+            const pointPositions = [];
+            
+            // Draw lines for each asset
+            assetsToShow.forEach(key => {
+                const asset = investmentData[key];
+                const normalized = normalizedData[key];
+                
+                ctx.strokeStyle = assetColors[key];
+                ctx.lineWidth = 2.5;
+                ctx.shadowColor = assetColors[key];
+                ctx.shadowBlur = 3;
+                
+                ctx.beginPath();
+                
+                normalized.forEach((value, i) => {
+                    const x = padding.left + (chartWidth / (years.length - 1)) * i;
+                    const y = height - padding.bottom - (value / maxValue) * chartHeight;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                    
+                    // Store point position
+                    pointPositions.push({
+                        x, y, 
+                        assetKey: key,
+                        assetName: asset.name,
+                        year: years[i],
+                        value: value.toFixed(2),
+                        originalValue: asset.data[i],
+                        icon: asset.icon
+                    });
+                });
+                
+                ctx.stroke();
+                
+                // Reset shadow
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                
+                // Draw points
+                normalized.forEach((value, i) => {
+                    const x = padding.left + (chartWidth / (years.length - 1)) * i;
+                    const y = height - padding.bottom - (value / maxValue) * chartHeight;
+                    
+                    ctx.fillStyle = '#1a202c';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = assetColors[key];
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    ctx.stroke();
+                });
+            });
+            
+            // Add mouse move event for tooltip
+            canvas.onmousemove = function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                // Find nearest point
+                let nearestPoint = null;
+                let minDist = 15; // Maximum distance to trigger tooltip
+                
+                pointPositions.forEach(point => {
+                    const dist = Math.sqrt(Math.pow(mouseX - point.x, 2) + Math.pow(mouseY - point.y, 2));
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearestPoint = point;
+                    }
+                });
+                
+                if (nearestPoint) {
+                    // Show tooltip
+                    const asset = investmentData[nearestPoint.assetKey];
+                    document.getElementById('tooltipTitle').textContent = `${nearestPoint.icon} ${nearestPoint.assetName}`;
+                    document.getElementById('tooltipContent').innerHTML = `
+                        <div style="margin-bottom: 5px;"><strong>Year:</strong> ${nearestPoint.year}</div>
+                        <div style="margin-bottom: 5px;"><strong>Growth:</strong> <span class="tooltip-value">${nearestPoint.value}%</span></div>
+                        <div><strong>Value:</strong> ${formatCurrency(nearestPoint.originalValue, nearestPoint.assetKey)}</div>
+                    `;
+                    
+                    tooltip.style.left = (e.clientX + 15) + 'px';
+                    tooltip.style.top = (e.clientY - 15) + 'px';
+                    tooltip.classList.add('show');
+                    canvas.style.cursor = 'pointer';
+                } else {
+                    tooltip.classList.remove('show');
+                    canvas.style.cursor = 'default';
+                }
+            };
+            
+            canvas.onmouseleave = function() {
+                tooltip.classList.remove('show');
+            };
+            
+            // Update legend
+            updateLegend(assetsToShow);
+        }
+
+        // Format currency based on asset type
+        function formatCurrency(value, assetKey) {
+            if (['bitcoin', 'ethereum', 'bnb'].includes(assetKey)) {
+                return 'Rp ' + value.toLocaleString('id-ID', {maximumFractionDigits: 0});
+            } else if (['gold', 'silver'].includes(assetKey)) {
+                return 'Rp ' + value.toLocaleString('id-ID', {maximumFractionDigits: 0}) + '/gram';
+            } else if (['stocks'].includes(assetKey)) {
+                return value.toLocaleString('id-ID', {maximumFractionDigits: 2});
+            } else {
+                return value.toLocaleString('id-ID', {maximumFractionDigits: 2}) + '%';
+            }
+        }
+
+        // Render RSI Chart
+        function renderRSIChart() {
+            const canvas = document.getElementById('rsiChart');
+            const ctx = canvas.getContext('2d');
+            const tooltip = document.getElementById('rsiTooltip');
+            
+            // Set canvas size with proper DPI
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = (rect.width - 50) * dpr;
+            canvas.height = 300 * dpr;
+            canvas.style.width = (rect.width - 50) + 'px';
+            canvas.style.height = '300px';
+            ctx.scale(dpr, dpr);
+            
+            const width = rect.width - 50;
+            const height = 300;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Calculate chart dimensions
+            const padding = { top: 20, right: 40, bottom: 40, left: 60 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+            
+            // Draw background zones
+            // Overbought zone (70-100)
+            const overboughtY = padding.top;
+            const overboughtHeight = (chartHeight * 30) / 100;
+            ctx.fillStyle = 'rgba(245, 101, 101, 0.1)';
+            ctx.fillRect(padding.left, overboughtY, chartWidth, overboughtHeight);
+            
+            // Oversold zone (0-30)
+            const oversoldY = height - padding.bottom - (chartHeight * 30) / 100;
+            const oversoldHeight = (chartHeight * 30) / 100;
+            ctx.fillStyle = 'rgba(72, 187, 120, 0.1)';
+            ctx.fillRect(padding.left, oversoldY, chartWidth, oversoldHeight);
+            
+            // Draw horizontal grid lines
+            ctx.strokeStyle = '#2d3748';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 10; i++) {
+                const y = padding.top + (chartHeight / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+                
+                // Y-axis labels
+                const value = 100 - (i * 10);
+                ctx.fillStyle = '#718096';
+                ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(value, padding.left - 10, y + 4);
+            }
+            
+            // Draw reference lines at 30 and 70
+            ctx.strokeStyle = '#ed8936';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 5]);
+            
+            // 70 line
+            const line70Y = padding.top + (chartHeight * 30) / 100;
+            ctx.beginPath();
+            ctx.moveTo(padding.left, line70Y);
+            ctx.lineTo(width - padding.right, line70Y);
+            ctx.stroke();
+            
+            // 30 line
+            const line30Y = padding.top + (chartHeight * 70) / 100;
+            ctx.beginPath();
+            ctx.moveTo(padding.left, line30Y);
+            ctx.lineTo(width - padding.right, line30Y);
+            ctx.stroke();
+            
+            ctx.setLineDash([]);
+            
+            // Draw vertical grid lines
+            years.forEach((year, i) => {
+                const x = padding.left + (chartWidth / (years.length - 1)) * i;
+                ctx.strokeStyle = '#2d3748';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(x, padding.top);
+                ctx.lineTo(x, height - padding.bottom);
+                ctx.stroke();
+                
+                // X-axis labels
+                ctx.fillStyle = '#718096';
+                ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(year, x, height - padding.bottom + 20);
+            });
+            
+            // Store point positions
+            const rsiPointPositions = [];
+            
+            // Draw RSI lines for each asset
+            Object.keys(investmentData).forEach(key => {
+                const asset = investmentData[key];
+                const rsiValues = asset.rsi;
+                
+                ctx.strokeStyle = assetColors[key];
+                ctx.lineWidth = 2;
+                ctx.shadowColor = assetColors[key];
+                ctx.shadowBlur = 2;
+                
+                ctx.beginPath();
+                
+                rsiValues.forEach((rsi, i) => {
+                    const x = padding.left + (chartWidth / (years.length - 1)) * i;
+                    const y = height - padding.bottom - (rsi / 100) * chartHeight;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                    
+                    // Store point position
+                    rsiPointPositions.push({
+                        x, y,
+                        assetKey: key,
+                        assetName: asset.name,
+                        year: years[i],
+                        rsi: rsi,
+                        icon: asset.icon
+                    });
+                });
+                
+                ctx.stroke();
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                
+                // Draw points
+                rsiValues.forEach((rsi, i) => {
+                    const x = padding.left + (chartWidth / (years.length - 1)) * i;
+                    const y = height - padding.bottom - (rsi / 100) * chartHeight;
+                    
+                    ctx.fillStyle = '#1a202c';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = assetColors[key];
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.stroke();
+                });
+            });
+            
+            // Add mouse move event for RSI tooltip
+            canvas.onmousemove = function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                let nearestPoint = null;
+                let minDist = 15;
+                
+                rsiPointPositions.forEach(point => {
+                    const dist = Math.sqrt(Math.pow(mouseX - point.x, 2) + Math.pow(mouseY - point.y, 2));
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearestPoint = point;
+                    }
+                });
+                
+                if (nearestPoint) {
+                    let condition = 'Neutral';
+                    let conditionColor = '#ed8936';
+                    if (nearestPoint.rsi > 70) {
+                        condition = 'Overbought';
+                        conditionColor = '#f56565';
+                    } else if (nearestPoint.rsi < 30) {
+                        condition = 'Oversold';
+                        conditionColor = '#48bb78';
+                    }
+                    
+                    document.getElementById('rsiTooltipTitle').textContent = `${nearestPoint.icon} ${nearestPoint.assetName}`;
+                    document.getElementById('rsiTooltipContent').innerHTML = `
+                        <div style="margin-bottom: 5px;"><strong>Year:</strong> ${nearestPoint.year}</div>
+                        <div style="margin-bottom: 5px;"><strong>RSI:</strong> <span class="tooltip-value">${nearestPoint.rsi}</span></div>
+                        <div><strong>Status:</strong> <span style="color: ${conditionColor}; font-weight: 600;">${condition}</span></div>
+                    `;
+                    
+                    tooltip.style.left = (e.clientX + 15) + 'px';
+                    tooltip.style.top = (e.clientY - 15) + 'px';
+                    tooltip.classList.add('show');
+                    canvas.style.cursor = 'pointer';
+                } else {
+                    tooltip.classList.remove('show');
+                    canvas.style.cursor = 'default';
+                }
+            };
+            
+            canvas.onmouseleave = function() {
+                tooltip.classList.remove('show');
+            };
+            
+            // Update RSI legend
+            updateRSILegend();
+        }
+
+        // Update legend
+        function updateLegend(assetsToShow) {
+            const legend = document.getElementById('chartLegend');
+            legend.innerHTML = '';
+            
+            assetsToShow.forEach(key => {
+                const asset = investmentData[key];
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <div class="legend-color" style="background: ${assetColors[key]}"></div>
+                    <span>${asset.name}</span>
+                `;
+                legend.appendChild(item);
+            });
+        }
+
+        // Update RSI legend
+        function updateRSILegend() {
+            const legend = document.getElementById('rsiLegend');
+            legend.innerHTML = '';
+            
+            Object.keys(investmentData).forEach(key => {
+                const asset = investmentData[key];
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <div class="legend-color" style="background: ${assetColors[key]}"></div>
+                    <span>${asset.name}</span>
+                `;
+                legend.appendChild(item);
+            });
+        }
+
+        // Filter chart
+        function filterChart(filter) {
+            document.querySelectorAll('.filters .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderChart(filter);
+        }
+
+        // Show modal with detailed info
+        function showModal(assetKey) {
+            const asset = investmentData[assetKey];
+            const modal = document.getElementById('assetModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <h2 style="color: #e2e8f0; margin-bottom: 20px;">${asset.icon} ${asset.name}</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div class="metric-card">
+                        <div class="metric-label">5-Year Return</div>
+                        <div class="metric-value" style="color: ${asset.performance.includes('-') ? '#f56565' : '#48bb78'}">${asset.performance}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">YTD Return</div>
+                        <div class="metric-value" style="color: ${asset.ytd.includes('-') ? '#f56565' : '#48bb78'}; font-size: 1.5em;">${asset.ytd}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Annual Return</div>
+                        <div class="metric-value" style="font-size: 1.5em;">${asset.annualReturn}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Risk Level</div>
+                        <div style="margin-top: 10px;">
+                            <span class="risk-badge risk-${asset.risk}" style="font-size: 1em; padding: 8px 16px;">
+                                ${asset.risk === 'low' ? 'LOW RISK' : asset.risk === 'medium' ? 'MEDIUM RISK' : 'HIGH RISK'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: #1a202c; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #2d3748;">
+                    <p style="margin-bottom: 10px;"><strong style="color: #a0aec0;">💰 Minimum Investment:</strong> ${asset.minInvestment}</p>
+                    <p style="margin-bottom: 10px;"><strong style="color: #a0aec0;">💧 Liquidity:</strong> ${asset.liquidity}</p>
+                    <p style="margin-bottom: 10px;"><strong style="color: #a0aec0;">📋 Tax:</strong> ${asset.tax}</p>
+                    <p><strong style="color: #a0aec0;">📱 Platform:</strong> ${asset.platforms}</p>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Strengths</h4>
+                        <ul>
+                            ${asset.pros.map(pro => `<li>${pro}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>⚠️ Weaknesses</h4>
+                        <ul>
+                            ${asset.cons.map(con => `<li>${con}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('assetModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('assetModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Investment calculator
+        function calculateInvestment() {
+            const investment = parseFloat(document.getElementById('investment').value);
+            const assetType = document.getElementById('assetType').value;
+            const period = parseInt(document.getElementById('period').value);
+            
+            if (!investment || investment <= 0) {
+                alert('Please enter a valid investment amount');
+                return;
+            }
+            
+            const asset = investmentData[assetType];
+            const annualReturn = parseFloat(asset.annualReturn) / 100;
+            
+            const futureValue = investment * Math.pow(1 + annualReturn, period);
+            const totalReturn = futureValue - investment;
+            const returnPercentage = ((futureValue / investment - 1) * 100).toFixed(2);
+            
+            let netReturn = totalReturn;
+            let taxAmount = 0;
+            
+            if (asset.tax !== 'BEBAS PAJAK 0%') {
+                const taxRate = parseFloat(asset.tax) / 100;
+                if (!isNaN(taxRate)) {
+                    taxAmount = totalReturn * taxRate;
+                    netReturn = totalReturn - taxAmount;
+                }
+            }
+            
+            const resultDiv = document.getElementById('calcResult');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <h4>Projection Results</h4>
+                    <p><strong>Asset:</strong> ${asset.icon} ${asset.name}</p>
+                    <p><strong>Initial Investment:</strong> Rp ${investment.toLocaleString('id-ID')}</p>
+                    <p><strong>Period:</strong> ${period} years</p>
+                    <p><strong>Assumed Return:</strong> ${asset.annualReturn} annually</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px solid #4a5568;">
+                    <p style="font-size: 1.2em;"><strong>Final Value:</strong> <span style="color: #48bb78;">Rp ${futureValue.toLocaleString('id-ID', {maximumFractionDigits: 0})}</span></p>
+                    <p><strong>Total Profit:</strong> <span style="color: #48bb78;">Rp ${totalReturn.toLocaleString('id-ID', {maximumFractionDigits: 0})} (+${returnPercentage}%)</span></p>
+                    ${taxAmount > 0 ? `
+                        <p><strong>Estimated Tax:</strong> <span style="color: #f56565;">Rp ${taxAmount.toLocaleString('id-ID', {maximumFractionDigits: 0})}</span></p>
+                        <p><strong>Net Profit:</strong> <span style="color: #48bb78;">Rp ${netReturn.toLocaleString('id-ID', {maximumFractionDigits: 0})}</span></p>
+                    ` : `
+                        <p style="color: #48bb78; font-weight: bold;">✨ Tax Free! All profits are yours</p>
+                    `}
+                    <hr style="margin: 15px 0; border: none; border-top: 1px solid #4a5568;">
+                    <p style="font-size: 0.85em; color: #a0aec0;">⚠️ Disclaimer: This projection is based on historical performance. Past performance does not guarantee future results. Always conduct your own research before investing.</p>
+                </div>
+            `;
+        }
+
+        // Initialize on load
+        window.onload = init;
+
+        // Redraw chart on window resize with debounce
+        let resizeTimeout;
+        window.onresize = function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                renderChart(currentFilter);
+                renderRSIChart();
+            }, 250);
+        };
+    </script>
+</body>
+</html>
